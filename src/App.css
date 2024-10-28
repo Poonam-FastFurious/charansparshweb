@@ -1,0 +1,64 @@
+.testimonial-slider .slick-slide {
+  padding: 0px 10px;
+}
+
+.bg-footer {
+  background-image: url("./assets/Images/charnsparshfooterimage.jpeg");
+  background-size: cover; /* Ensures the image covers the entire div */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+.slider-container .slick-slide {
+  padding: 0px 10px; /* Adjust the margin as needed */
+}
+
+.Montserrat-font {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* .rotate-images {
+  -webkit-animation: spin 15s linear infinite;
+  -moz-animation: spin 15s linear infinite;
+  animation: spin 15s linear infinite;
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+} */
+
+.rotate-images {
+  position: absolute;
+
+  animation: rotate 20s infinite linear; /* or any custom animation */
+  z-index: -4; /* Ensures it stays behind the main content */
+}
+
+/* Add a keyframe animation if rotating effect is intended */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.custom-swal-title {
+  font-size: 20px; /* Change to desired size */
+  font-weight: bold;
+  color: #333; /* Optional: Change the text color */
+}
