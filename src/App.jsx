@@ -40,6 +40,8 @@ import RouteProtected from "./Components/ProtectedRoutes/RouteProtected";
 import SerchPage from "./Components/Pages/SearchPages/SerchPage";
 import OrderDetails from "./Components/Pages/OrderDetails";
 import Suport from "./Components/Suport/Suport";
+import ForgotPassword from "./Components/Authentication/ForgotPassword";
+import ResetPassword from "./Components/Authentication/ResetPassword";
 function App() {
   return (
     <>
@@ -52,6 +54,9 @@ function App() {
             path="/login"
             element={<ProtectedRoute element={<Login />} redirectTo="/" />}
           />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
           <Route
             path="/SignUp"
             element={<ProtectedRoute element={<SignUp />} redirectTo="/" />}
@@ -104,11 +109,11 @@ function App() {
             }
           />
           <Route
-            path="/product/:categoryName/:subcategory"
+            path="/product/:categoryId/:subcategoryId"
             element={<Shoppage />}
           />
           <Route
-            path="/product/:categoryName"
+            path="/product/:id"
             element={<CategorywiseProduct />}
           />
           <Route path="/StateProduct/:statename" element={<Stateproduct />} />

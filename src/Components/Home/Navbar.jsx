@@ -16,7 +16,7 @@ function Navbar() {
                     >
                       <i className="fi fi-rr-phone-call transition-all duration-[0.3s] ease-in-out text-[#fff]"></i>
                     </Link>
-                    +91 987 654 3210
+                    +919899888847
                   </li>
                   <li className="list-inline-item transition-all duration-[0.3s] ease-in-out flex text-[13px]">
                     <Link
@@ -25,7 +25,7 @@ function Navbar() {
                     >
                       <i className="fi fi-brands-whatsapp transition-all duration-[0.3s] ease-in-out text-[#fff]"></i>
                     </Link>
-                    +91 987 654 3210
+                    +919899888847
                   </li>
                 </ul>
               </div>

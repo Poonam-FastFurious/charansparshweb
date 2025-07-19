@@ -44,19 +44,19 @@ function HomesecondColection() {
     <div>
       <body className=" relative overflow-hidden ">
         <img
-         src={circleimage}
+          src={circleimage}
           alt=""
           className="rotate-images absolute -top-20 -left-40 " // Adjust width/height as needed
         />
 
         <img
-         src={circleimage}
+          src={circleimage}
           alt=""
           className="rotate-images absolute -bottom-20 -right-20" // Adjust width/height as needed
         />
-         <div className="sm:container   md:container lg:container mx-4   sm:mx-auto py-8 ">
+        <div className="sm:container   md:container lg:container mx-4   sm:mx-auto py-8 ">
           <h1 className="text-3xl font-semibold text-center text-green-900">
-            Statecraft Collection
+            ODOP & GI
           </h1>
           <p className="text-center text-gray-700 mt-4">
             From fashion-forward accessories to personalized home decor, the DIY

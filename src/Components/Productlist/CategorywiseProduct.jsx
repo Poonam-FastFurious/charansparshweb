@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Baseurl } from "../../Config";
 import { Link, useParams } from "react-router-dom";
-import audio from "../../assets/Images/gond.mp3";
-import bannervideo from "../../assets/Images/bannervideo.mp4";
+
 import { useWishlist } from "../Hooks/useWishlist";
 import { useCart } from "../Hooks/useCart";
 import { toast } from "react-toastify";
 function CategorywiseProduct() {
+  const [categoryData, setCategoryData] = useState(null);
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [quickview, setQuickview] = useState(false);
@@ -15,7 +16,7 @@ function CategorywiseProduct() {
   const { handleAddToWishlist } = useWishlist();
   const { addToCart } = useCart();
   const [sortOption, setSortOption] = useState("1"); // Default sorting option
-  const { categoryName } = useParams();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     // Fetch product data from API
@@ -26,16 +27,15 @@ function CategorywiseProduct() {
         setProducts(allProducts);
         // Filter products based on categoryName
         const filtered = allProducts.filter(
-          (product) =>
-            product.categories.toLowerCase() === categoryName.toLowerCase() &&
-            product.IsApproved
+          (product) => product.categories?._id === id && product.IsApproved
         );
+
         setFilteredProducts(filtered);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [categoryName]);
+  }, [id]);
   const toggleQuickview = async (productId) => {
     setLoading(true);
     try {
@@ -96,8 +96,19 @@ function CategorywiseProduct() {
       ? `${text.substring(0, maxLength)}...`
       : text;
   };
+  useEffect(() => {
+    // Fetch category data
+    axios
+      .get(`${Baseurl}/api/v1/category/details/${id}`)
+      .then((response) => {
+        setCategoryData(response.data.data); // Adjust if API response format differs
+      })
+      .catch((error) => {
+        console.error("Error fetching category data:", error);
+      });
+  }, [id]);
   console.log(products);
-  
+
   return (
     <>
       <section className="gi-offer-section overflow-hidden   sm:container md:container  ">
@@ -110,7 +121,11 @@ function CategorywiseProduct() {
               <div className="gi-ofr-banners ">
                 <div className=" flex flex-row relative overflow-hidden ">
                   <div className=" w-full relative">
-                    <video src={bannervideo} autoPlay loop></video>
+                    <img
+                      src={categoryData?.image}
+                      alt="Category Banner"
+                      className="w-full object-cover h-[370px]"
+                    ></img>
                   </div>
                 </div>
               </div>
@@ -122,31 +137,16 @@ function CategorywiseProduct() {
               <div className="gi-ofr-banners max-[767px]:mt-[30px]  ">
                 <div className="gi-bnr-body flex flex-row relative overflow-hidden">
                   <div className="gi-bnr-img w-full relative ">
-                    <div alt="banner" className="w-full  h-[370px] " />
+                    <div alt="banner" className="w-full   " />
                   </div>
                   <div className="">
                     <h5 className="text-black text-[34px] font-bold leading-[1.2] capitalize mb-[6px] max-[1399px]:text-[28px] max-[1199px]:text-[22px] max-[991px]:text-[16px] max-[767px]:text-[20px] max-[420px]:text-[16px] pb-4">
-                      {categoryName}
+                      {categoryData?.categoriesTitle || "Category Title"}
                     </h5>
                     <p className="text-black ">
-                      Lorem Ipsum Dolor Sit Amet Consectetur. Eu Elementum Purus
-                      Vel Amet Amet Nec Magna Tortor. Nunc At Nisl Senectus
-                      Lacinia. Faucibus Tortor Et Amet Senectus Auctor Arcu Id
-                      Et Tortor. Mattis Eget Mi Dignissim Etiam Justo
-                      Ultricies... Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Eum dolores numquam quo repudiandae quia
-                      id eligendi cum at magni fuga? Modi ab repellat, ratione
-                      error qui pariatur eveniet saepe deserunt iusto vitae
-                      praesentium vel atque magni sunt reprehenderit libero
-                      ipsam molestiae laudantium a inventore! Quaerat.
+                      {categoryData?.description ||
+                        "Discover the timeless beauty of Rajasthan through our exclusive collection of Gems Jewellery. From the sparkling gemstones of the Royal Lands of Rajasthan to intricately crafted traditional ornaments, each piece celebrates the royal heritage and unmatched craftsmanship of our land. A symbol of culture, class, and history — curated for the modern connoisseur. ."}
                     </p>
-
-                    <div className="mt-4">
-                      <audio controls className="w-[90%] text-black">
-                        <source src={audio} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
                   </div>
                 </div>
               </div>

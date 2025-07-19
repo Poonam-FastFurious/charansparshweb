@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Baseurl } from "../../../Config";
-import audio from "../../../assets/Images/gond.mp3";
 import bannervideo from "../../../assets/Images/bannervideo.mp4";
 import { useWishlist } from "../../Hooks/useWishlist";
 import { useCart } from "../../Hooks/useCart";
 import { toast } from "react-toastify";
+
 function Stateproduct() {
   const [sortOption, setSortOption] = useState("1"); // Default sorting option
   const [products, setProducts] = useState([]);
@@ -17,6 +17,18 @@ function Stateproduct() {
   const { handleAddToWishlist } = useWishlist();
   const { addToCart } = useCart();
   const { statename } = useParams();
+
+  const stateDescriptions = {
+    "uttar pradesh":
+      "Sustainability meets tradition in our Eco-Friendly collection—where every product is designed to care for both you and the planet. Made using natural, biodegradable, and locally sourced materials, these creations combine ancient Indian wisdom with modern eco-conscious living. Whether it's home decor, daily-use items, or gifts with a purpose — our eco-friendly products are handcrafted, plastic-free, and full of soul.Nature-Inspired | Sustainable | 100% Artisan-Made|	",
+    "madhya pradesh": "Explore the soulful beauty of India’s rich heritage with our exclusive Handicraft collection. Every product in this category is a masterpiece—authentically handcrafted by skilled artisans from different regions of India, and many proudly bear the GI (Geographical Indication) tag, ensuring their cultural and regional uniqueness . 100% Authentic | GI-Tagged | Handmade with Legacy	",
+    rajasthan: "Experience the vibrant legacy of Rajasthan’s textiles and handloom traditions. Our curated collection brings you handwoven fabrics, intricate block prints, and traditional weaves crafted by skilled artisans. Each piece is a testament to cultural richness, detailed craftsmanship, and timeless style — perfect for clothing, home decor, and gifting.	",
+  };
+
+  const description =
+    stateDescriptions[statename.toLowerCase()] ||
+    "Default description agar state milti nahi";
+
   const toggleQuickview = async (productId) => {
     setLoading(true);
     try {
@@ -123,25 +135,7 @@ function Stateproduct() {
                     <h5 className="text-black text-[34px] font-bold leading-[1.2] capitalize mb-[6px] max-[1399px]:text-[28px] max-[1199px]:text-[22px] max-[991px]:text-[16px] max-[767px]:text-[20px] max-[420px]:text-[16px] pb-4">
                       {statename}
                     </h5>
-                    <p className="text-black ">
-                      Lorem Ipsum Dolor Sit Amet Consectetur. Eu Elementum Purus
-                      Vel Amet Amet Nec Magna Tortor. Nunc At Nisl Senectus
-                      Lacinia. Faucibus Tortor Et Amet Senectus Auctor Arcu Id
-                      Et Tortor. Mattis Eget Mi Dignissim Etiam Justo
-                      Ultricies... Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Eum dolores numquam quo repudiandae quia
-                      id eligendi cum at magni fuga? Modi ab repellat, ratione
-                      error qui pariatur eveniet saepe deserunt iusto vitae
-                      praesentium vel atque magni sunt reprehenderit libero
-                      ipsam molestiae laudantium a inventore! Quaerat.
-                    </p>
-
-                    <div className="mt-4">
-                      <audio controls className="w-full text-black">
-                        <source src={audio} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
+                    <p className="text-black ">{description} </p>
                   </div>
                 </div>
               </div>
@@ -200,7 +194,7 @@ function Stateproduct() {
                             <div className="gi-pro-image-outer transition-all duration-[0.3s] ease delay-[0s] z-[11] relative">
                               <div className="gi-pro-image overflow-hidden">
                                 <Link
-                                 to={`/Productdetails/${items._id}`}
+                                  to={`/Productdetails/${items._id}`}
                                   className="image relative block overflow-hidden "
                                 >
                                   <span className="label veg max-[991px]:hidden">

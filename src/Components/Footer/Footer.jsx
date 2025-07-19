@@ -100,7 +100,7 @@ function Footer() {
                   <li key={index}>
                     <Link
                       onClick={scrollToTop}
-                      to={`/product/${item.categoriesTitle}`}
+                      to={`/product/${item._id}`}
                       className="hover:text-[black] text-black text-[15px] transition-all"
                     >
                       {item.categoriesTitle}

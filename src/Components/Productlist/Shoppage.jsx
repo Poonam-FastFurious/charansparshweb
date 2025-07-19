@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Baseurl } from "../../Config";
 import { Link, useParams } from "react-router-dom";
-import audio from "../../assets/Images/gond.mp3";
-import bannervideo from "../../assets/Images/bannervideo.mp4";
 import { useWishlist } from "../Hooks/useWishlist";
 import { useCart } from "../Hooks/useCart";
 import { toast } from "react-toastify";
 
 function Shoppage() {
+  const [categoryData, setCategoryData] = useState(null);
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [quickview, setQuickview] = useState(false);
@@ -16,31 +16,30 @@ function Shoppage() {
   const { handleAddToWishlist } = useWishlist();
   const { addToCart } = useCart();
   const [sortOption, setSortOption] = useState("1"); // Default sorting option
-  const { categoryName, subcategory } = useParams();
+  const { categoryId, subcategoryId } = useParams();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    // Fetch product data from API
     axios
       .get(Baseurl + "/api/v1/Product/products")
       .then((response) => {
-        const allProducts = response.data.data; // Adjust based on the actual API response structure
+        const allProducts = response.data.data;
         setProducts(allProducts);
 
-        // Filter products based on categoryName and subcategory
+        // Filter based on categoryId and subcategoryId from URL params
         const filtered = allProducts.filter(
           (product) =>
-            product.categories.toLowerCase() === categoryName.toLowerCase() &&
-            (subcategory
-              ? product.subcategory?.toLowerCase() === subcategory.toLowerCase()
-              : true) &&
-            product.IsApproved
+            product.IsApproved &&
+            product.categories?._id === categoryId && // match categoryId
+            (!subcategoryId || product.subcategory?._id === subcategoryId) // match subcategoryId if provided
         );
+
         setFilteredProducts(filtered);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [categoryName, subcategory]);
+  }, [categoryId, subcategoryId]);
+
   const toggleQuickview = async (productId) => {
     setLoading(true);
     try {
@@ -94,6 +93,17 @@ function Shoppage() {
     setSortOption(option);
     filterProducts(sortProducts(filteredProducts, option));
   };
+  useEffect(() => {
+    // Fetch category data
+    axios
+      .get(`${Baseurl}/api/v1/category/details/${categoryId}`)
+      .then((response) => {
+        setCategoryData(response.data.data); // Adjust if API response format differs
+      })
+      .catch((error) => {
+        console.error("Error fetching category data:", error);
+      });
+  }, [categoryId]);
   console.log(products);
 
   return (
@@ -108,7 +118,11 @@ function Shoppage() {
               <div className="gi-ofr-banners ">
                 <div className=" flex flex-row relative overflow-hidden ">
                   <div className=" w-full relative">
-                    <video src={bannervideo} autoPlay loop></video>
+                    <img
+                      src={categoryData?.image}
+                      alt="Category Banner"
+                      className="w-full object-cover h-[370px]"
+                    ></img>
                   </div>
                 </div>
               </div>
@@ -124,27 +138,11 @@ function Shoppage() {
                   </div>
                   <div className="">
                     <h5 className="text-black text-[34px] font-bold leading-[1.2] capitalize mb-[6px] max-[1399px]:text-[28px] max-[1199px]:text-[22px] max-[991px]:text-[16px] max-[767px]:text-[20px] max-[420px]:text-[16px] pb-4">
-                      {categoryName}
+                      {categoryData?.categoriesTitle || "Category Title"}
                     </h5>
                     <p className="text-black ">
-                      Lorem Ipsum Dolor Sit Amet Consectetur. Eu Elementum Purus
-                      Vel Amet Amet Nec Magna Tortor. Nunc At Nisl Senectus
-                      Lacinia. Faucibus Tortor Et Amet Senectus Auctor Arcu Id
-                      Et Tortor. Mattis Eget Mi Dignissim Etiam Justo
-                      Ultricies... Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Eum dolores numquam quo repudiandae quia
-                      id eligendi cum at magni fuga? Modi ab repellat, ratione
-                      error qui pariatur eveniet saepe deserunt iusto vitae
-                      praesentium vel atque magni sunt reprehenderit libero
-                      ipsam molestiae laudantium a inventore! Quaerat.
+                      {categoryData?.description || "No description available."}
                     </p>
-
-                    <div className="mt-4">
-                      <audio controls className="w-full text-black">
-                        <source src={audio} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
                   </div>
                 </div>
               </div>

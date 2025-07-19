@@ -70,13 +70,15 @@ function HomeColection() {
                         {item.categoriesTitle}
                       </h2>
                       <p className="mt-2 text-gray-600 text-center">
-                        From fashion-forward accessories to personalized home
-                        decor, the DIY possibilities are endless with Dritz
-                        cover buttons.
+                        Discover our handpicked collection of the finest gift
+                        options and thoughtfully curated combination boxes. Each
+                        product is a perfect blend of tradition and
+                        elegance—specially recommended by us to make your
+                        gifting experience truly memorable.
                       </p>
                       <Link
                         style={{ display: "flex", justifyContent: "center" }}
-                        to={`/product/${item.categoriesTitle}`}
+                        to={`/product/${item._id}`}
                         className=" text-center inline-block mt-4  w-40   mx-auto  py-2  text-orange-400 border hover:text-white hover:bg-orange-500 border-orange-500 font-semibold rounded-lg"
                         onClick={handleSmoothScrollToTop}
                       >

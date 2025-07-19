@@ -5,7 +5,7 @@ import UttarPradesh from "../../../assets/Images/Uttar Pradesh.jpeg";
 import MadhyaPradesh from "../../../assets/Images/madhyapradesh.png";
 import Rajasthan from "../../../assets/Images/Rajasthan.jpeg";
 
-import bannervideo from "../../../assets/Images/FINAL jaipur pro4.mp4";
+// import bannervideo from "../../../assets/Images/FINAL jaipur pro4.mp4";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -39,21 +39,21 @@ function Detailsproduct() {
 
   return (
     <div>
-      <section className=" ">
+      {/* <section className=" ">
         <div className="">
           <div className="w-full flex flex-wrap">
             <div className="min-[768px]:w-[100%] w-full ">
               <div className="gi-ofr-banners ">
                 <div className=" flex flex-row relative overflow-hidden ">
                   <div className=" w-full relative  sm:h-[550px] md:h-[550px] lg:h-[550px]">
-                    <video src={bannervideo} autoPlay loop></video>
+                    <video src={"bannervideo"} autoPlay loop></video>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <div className="bg-[#F6E8DD] relative overflow-hidden ">
         <img
           src="https://charansparsh.in/circle-vector.295669bfeaa9a830.png"

@@ -236,7 +236,7 @@ function Header2() {
                                 key={category._id}
                               >
                                 <Link
-                                  to={`/product/${category.categoriesTitle}`}
+                                  to={`/product/${category._id}`}
                                   className="dropdown-arrow py-[15px] text-[15px] leading-[60px] capitalize text-[#4b5966] flex items-center font-medium"
                                 >
                                   {category.categoriesTitle}
@@ -248,7 +248,7 @@ function Header2() {
                                         (subcategory) => (
                                           <li key={subcategory._id}>
                                             <a
-                                              href={`/product/${category.categoriesTitle}/${subcategory.subCategoryTitle}`}
+                                              href={`/product/${category._id}/${subcategory._id}`}
                                               className="transition-all duration-[0.3s] ease-in-out leading-[20px] px-[20px] py-[10px] font-normal text-[13px] text-[#777] capitalize flex justify-between items-center hover:text-[#5caf90]"
                                             >
                                               {subcategory.subCategoryTitle}
@@ -265,7 +265,7 @@ function Header2() {
                                 to="/StateProduct"
                                 className="transition-all duration-[0.3s] ease-in-out text-[15px] py-[15px] leading-[60px] capitalize text-[#4b5966] flex items-center font-medium"
                               >
-                                State Wise
+                                ODOP & GI
                               </Link>
                             </li>
                           </ul>
